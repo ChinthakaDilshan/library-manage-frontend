@@ -1,0 +1,142 @@
+<div class="cointainer">
+    <table class="table table-hover table-borded" *ngIf="borrowerList">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">Address2</th>
+                <th scope="col">Country</th>
+                <th scope="col">Email</th>
+                <th scope="col">Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let borrower of borrowerList">
+                <td>{{borrower.id}}</td>
+                <td>{{borrower.firstName+""+borrower.lastName+"("+borrower.userName+")"}}</td>
+                <td>{{borrower.address}}</td>
+                <td>{{borrower.address2}}</td>
+                <td>{{borrower.country}}</td>
+                <td>{{borrower.email}}</td>
+                <td>{{borrower.contactNumber}}</td>
+                <td><button (click)="setSelectedBorrower(borrower)" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    class="btn btn-danger"><i class="bi bi-trash3"></i></button></td>
+                <td><button (click)="setSelectedBorrower(borrower)" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#updateModal" data-bs-whatever="@getbootstrap"><i class=" bi bi-pencil-square"></i></button>
+                </td>
+              </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal delete -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Comfirmation</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          if you want delete
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="deleteBorrower()" data-bs-dismiss="modal">delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- model update for comfirmation -->
+<!-- Button trigger modal -->
+
+<div class="modal fade" id="updateComfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      If you want to update "{{selectedBorrower?.userName}}" this User.
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveBorrower()">Comfirm Update</button>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- model update -->
+
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">ID:</label>
+              <input type="text" value={{selectedBorrower?.id}} disabled class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">First Name:</label>
+              <input type="text" [(ngModel)]="selectedBorrower &&  selectedBorrower.firstName" [ngModelOptions]="{standalone:true}"  class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Last Name:</label>
+              <input type="text" [(ngModel)]="selectedBorrower &&  selectedBorrower.lastName" [ngModelOptions]="{standalone:true}"
+                class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">User Name:</label>
+              <input type="text" [(ngModel)]="selectedBorrower &&  selectedBorrower.userName" [ngModelOptions]="{standalone:true}"
+                class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Email:</label>
+              <input type="text" [(ngModel)]="selectedBorrower &&  selectedBorrower.email" [ngModelOptions]="{standalone:true}"
+                class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Address:</label>
+              <input type="text" [(ngModel)]="selectedBorrower &&  selectedBorrower.address" [ngModelOptions]="{standalone:true}"
+                class="form-control" id="recipient-name">
+            </div>
+            <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Address2:</label>
+                <input type="text" [(ngModel)]="selectedBorrower &&  selectedBorrower.address2" [ngModelOptions]="{standalone:true}"
+                  class="form-control" id="recipient-name">
+              </div>
+
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Country:</label>
+                <input type="text" [(ngModel)]="selectedBorrower &&  selectedBorrower.country" [ngModelOptions]="{standalone:true}"
+                  class="form-control" id="recipient-name">
+              </div>
+
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Contact:</label>
+                <input type="text" [(ngModel)]="selectedBorrower &&  selectedBorrower.contactNumber" [ngModelOptions]="{standalone:true}"
+                  class="form-control" id="recipient-name">
+              </div>
+  
+  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#updateComfirmationModal">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
